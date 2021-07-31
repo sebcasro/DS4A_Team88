@@ -1,0 +1,11 @@
+.test1 {
+    border: 1px dotted red;
+}
+
+.test2 {
+    border: 1px dotted blue;
+}
+
+.test3 {
+    border: 1px dashed green;
+}
