@@ -1,3 +1,4 @@
 .ipynb_checkpoints/
 datos/
 *.xlsx
+dash/__pycache__/

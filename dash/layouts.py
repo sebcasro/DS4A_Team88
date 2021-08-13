@@ -2,8 +2,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from app import app
-import plotly.express as px
 
+import plotly.express as px
 import pandas as pd
 
 #####################################
@@ -221,4 +221,4 @@ layout_p1 = html.Div([
 
 # layout_p1 = html.P("This is the content of page 1!")
 layout_p2 = html.P("This is the content of page 2. Yay!")
-layout_p3 = html.P("Oh cool, this is page 3!")
+layout_p3 = html.P("Oh cool, this is page 3!--- soy jairo")
