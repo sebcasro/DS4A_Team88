@@ -4,7 +4,7 @@ from dash.dependencies import Input, Output
 
 from app import app, server 
 
-from layouts import *
+from layout import *
 from callbacks import *
 
 # Define basic structure of app:
@@ -13,12 +13,12 @@ app.layout = html.Div(
         dcc.Store(id='side_click'),
         dcc.Location(id="url"),
         navbar(),
-        sidebar(),
+        # sidebar(),
         content(),
     ],
 )
 
-#Runs the server at http://127.0.0.1:5000/      
+#Runs the server at http://127.0.0.1:5000/
 if __name__ == '__main__':
     # app.run_server(port=5000, host= '127.0.0.1',debug=True)
     app.run_server(debug=True)

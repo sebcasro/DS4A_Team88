@@ -1,11 +1,108 @@
-.test1 {
-    border: 1px dotted red;
+:root {
+    --pink-color: #ff516e;
+    --pink2-color:#d1455c;
+    --gray1-color: #e2e2e2;
 }
 
-.test2 {
-    border: 1px dotted blue;
+  body {
+    background-color: var(--gray1-color);
 }
 
-.test3 {
-    border: 1px dashed green;
+._pink {
+    color: var(--pink-color);
+}
+
+.col_button{    
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.right {
+    text-align: right;
+}
+
+.test {
+    border: 0.1px dotted red;
+}
+
+.box {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0.0px dotted red;
+}
+
+.box-shadow {
+    padding: 0px 5px 0px 5px !important;
+    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+    border-radius: .25rem!important;
+    background-color: white;
+}
+
+input {
+    Height: 30px;
+    font-size: 1.2rem;
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem !important;
+    padding: 11px 11px 11px 11px !important;
+}
+
+div.SingleDatePickerInput {
+    border: none !important;
+}
+
+.p-bottom {
+    padding-bottom: 5px;
+}
+
+/* color rosado en el boton apply changes */
+#changes_button {
+    background-color: var(--pink-color);
+    border-color:var(--pink2-color);
+}
+
+/* color rosado en el boton apply changes:hover */
+#changes_button:hover {
+    background-color: var(--pink2-color);
+    border-color:var(--pink2-color);
+}
+
+/* color blanco en el boton clear changes */
+#clear_button {
+    background-color: white; 
+    /* var(--gray1-color); */
+    border-color:var(--pink2-color);
+    color: var(--pink2-color);
+}
+
+/* color rosado en el boton clear changes:hover */
+#clear_button:hover {
+    background-color: var(--pink2-color);
+    border-color:var(--pink2-color);
+    color: #fff;
+}
+
+/* cambia el margin en el hr */
+#page-content > div > div:nth-child(2) > div.box.test1.col-md-4 > div > hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* cambia el color de las fechas seleccionadas en el calendario */
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover{
+    background: var(--pink-color) !important;
+    border: 1px double var(--pink-color) !important;
+    color: #fff !important;
+}
+
+/* oculta un boton en la esquina de la selección de fechas */
+div.DayPicker_focusRegion.DayPicker_focusRegion_1 > div:nth-child(3) > button {
+    display: none !important;
+}
+
+.daq-numericinput--light__input {
+    color:#757575 !important;
+}
+
+.seccion_links div a {
+    font-weight: normal;
 }
