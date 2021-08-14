@@ -381,16 +381,4 @@ layout_p2 = html.Div([
         # Gráfica 4
         dbc.Col([ html.Div([ dcc.Graph(id='graph4', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
     ], className=''),
-
-    html.Hr(),
-
-    dbc.Row([
-        dbc.Col([    
-            html.Label('Selection'),
-            dcc.Dropdown(
-                id="data_selection", value=df.columns[1], clearable=False,
-                options=[{"label": x, "value": x} for x in df.columns[1:]]
-            ),
-        ], className='box', md=4),
-    ], className=''),
 ])

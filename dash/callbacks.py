@@ -14,10 +14,11 @@ import plotly.express as px
     Output("graph2", "figure"),
     Output("graph3", "figure"),
     Output("graph4", "figure"),
-    Input("data_selection", "value"))
+    Input('data-start-1', 'date'))
 def display_time_series(data_selection):
     # fig = px.line(df, x='Fecha', y=data_selection)
 
+    data_selection = 'kW/h price mean'
     temp = df[['Fecha', data_selection]]
     temp = temp[temp[data_selection].notnull()]
 

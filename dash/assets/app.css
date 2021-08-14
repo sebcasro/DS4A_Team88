@@ -2,6 +2,7 @@
     --pink-color: #ff516e;
     --pink2-color:#d1455c;
     --gray1-color: #e2e2e2;
+    --dark-gray:#383648;
 }
 
   body {
@@ -21,10 +22,6 @@
     text-align: right;
 }
 
-.test {
-    border: 0.1px dotted red;
-}
-
 .box {
     padding-left: 10px;
     padding-right: 10px;
@@ -32,14 +29,22 @@
 }
 
 .box-shadow {
-    padding: 0px 5px 0px 5px !important;
+    padding: 0px 0.26vw 0px 0.26vw !important;
+    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+    border-radius: .25rem!important;
+    background-color: white;
+}
+
+.box-shadow2 {
+    padding: 2.06vh 1.05vw 2.06vh 1.05vw !important;
     box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
     border-radius: .25rem!important;
     background-color: white;
 }
 
 input {
-    Height: 30px;
+    height: 30px;
+    width: 100%;
     font-size: 1.2rem;
     border: 1px solid #ced4da !important;
     border-radius: .25rem !important;
@@ -105,4 +110,45 @@ div.DayPicker_focusRegion.DayPicker_focusRegion_1 > div:nth-child(3) > button {
 
 .seccion_links div a {
     font-weight: normal;
+}
+
+#map {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#container-map {
+    /* padding: 7.0vh 0vw 7.0vh 0vw !important; */
+    background-color: var(--gray1-color);
+    /* background-color: red;     */
+}
+
+#logo_mintic, #logo_ds4a{
+    height: 100%;
+    max-height: 6.5vh;
+    float: right;
+    padding-left: 1.5vw;
+}
+
+.container-logos{
+    padding-right: 0;
+}
+
+#container-title {
+    padding-top: 2.0vh;
+    padding-left: 0.0vh;
+    border-bottom: 3px solid var(--pink-color);
+    margin-bottom: 2.0vh;
+}
+
+.home_text {
+    color: var(--dark-gray);
+    padding-left: 1.5vw;
+    text-align: justify;
+}
+
+.test {
+    border: 0.0px dashed var(--pink-color);
 }
