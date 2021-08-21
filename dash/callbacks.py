@@ -5,6 +5,7 @@ from layout import *
 from page_1 import layout_p1
 from page_2 import layout_p2
 from page_3 import layout_p3
+from test import layout_test
 from app import app
 
 import plotly.express as px
@@ -86,6 +87,9 @@ def render_page_content(pathname):
     elif pathname == "/about-us":
         return layout_p3
 
+    elif pathname == "/test":
+        return layout_test
+
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
@@ -121,3 +125,4 @@ def render_page_content(pathname):
 #         return 'Select a date to see it displayed here'
 #     else:
 #         return string_prefix
+

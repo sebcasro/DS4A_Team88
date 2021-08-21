@@ -31,14 +31,14 @@
 .box-shadow {
     padding: 0px 0.26vw 0px 0.26vw !important;
     box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
-    border-radius: .25rem!important;
+    border-radius: .25rem !important;
     background-color: white;
 }
 
 .box-shadow2 {
     padding: 2.06vh 1.05vw 2.06vh 1.05vw !important;
     box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
-    border-radius: .25rem!important;
+    border-radius: .25rem !important;
     background-color: white;
 }
 
@@ -122,7 +122,7 @@ div.DayPicker_focusRegion.DayPicker_focusRegion_1 > div:nth-child(3) > button {
 #container-map {
     /* padding: 7.0vh 0vw 7.0vh 0vw !important; */
     background-color: var(--gray1-color);
-    /* background-color: red;     */
+    /* background-color: red; */
 }
 
 #logo_mintic, #logo_ds4a{
@@ -149,6 +149,56 @@ div.DayPicker_focusRegion.DayPicker_focusRegion_1 > div:nth-child(3) > button {
     text-align: justify;
 }
 
-.test {
-    border: 0.0px dashed var(--pink-color);
+/* --------------------------------------------------- */
+
+.tab-border {
+    padding: 1rem 1rem 1rem 1rem !important;
+    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+    border-radius: .25rem !important;
+    border-top-left-radius: 0px !important;
 }
+
+.tab-border2 {
+    padding: 1rem 1rem 0rem 1rem !important;
+    border-radius: .25rem !important;
+    border-top-left-radius: 0px !important;
+}
+
+.nav{
+    border: 0px !important;
+}
+
+li > a.nav-link.active, a.nav-link.active:hover{
+    pointer-events: none;
+    border: 0px !important;
+    border-bottom: 3px solid var(--pink-color) !important;
+    background-color: white;   
+}
+
+li > a.nav-link {
+    border: 0px !important;
+    border-bottom: 3px solid transparent !important;
+}
+
+li > a.nav-link:hover {
+    border: 1px solid var(--gray1-color) !important;
+    border-bottom: 0px !important;
+}
+
+li.nav-item{
+    margin-bottom: 0px !important;
+}
+
+.card-box-border {
+    padding: 1rem 1rem 1rem 1rem !important;
+    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+    border-radius: .25rem !important;
+    background-color: white;
+}
+
+.no-side-padding {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.test { border: 1.0px dashed var(--pink-color); }
