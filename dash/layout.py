@@ -61,8 +61,8 @@ df = df.drop(columns=['Unnamed: 0'])
 
 CONTENT_STYLE_NO_SIDEBAR = {
     # "transition": "margin-left .5s",
-    "margin-left": "1rem",
-    "margin-right": "1rem",
+    "marginLeft": "1rem",
+    "marginRight": "1rem",
     "padding": "1rem 1rem"
 }
 
@@ -87,7 +87,7 @@ def navbar():
             #     label="More",
             # ),
         ],
-        brand="Brand",
+        brand="DS4A - Team 88",
         brand_href="#",
         color="dark",
         dark=True,
