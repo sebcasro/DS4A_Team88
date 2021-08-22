@@ -21,4 +21,7 @@ layout_p3 = html.Div([
         dbc.Col([ html.Span("Col 3") ], className='test', md=6),
         dbc.Col([ html.Span("Col 4") ], className='test', md=6),
     ], className='box-shadow test'),
+
+
+
 ])

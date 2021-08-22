@@ -5,7 +5,7 @@ from layout import *
 from page_1 import layout_p1
 from page_2 import layout_p2
 from page_3 import layout_p3
-from test import layout_test
+from jairo import layout_test
 from app import app
 
 import plotly.express as px
@@ -14,7 +14,7 @@ import plotly.express as px
     Output("graph1", "figure"),
     Output("graph2", "figure"),
     Output("graph3", "figure"),
-    Output("graph4", "figure"),
+    Output("graph4", "figure"),    
     Input('data-start-1', 'date'))
 def display_time_series(data_selection):
     # fig = px.line(df, x='Fecha', y=data_selection)
@@ -33,6 +33,119 @@ def display_time_series(data_selection):
         font_color='#757575'
     )
     return fig, fig, fig, fig
+
+# --------------------------------------------------------------------------
+@app.callback(
+    Output("graph5", "figure"),
+    Output("graph6", "figure"),
+    Output("graph7", "figure"),
+    Output("graph8", "figure"),
+    Input('energy_type', 'value'))
+def display_time_series(data_selection):
+    # fig = px.line(df, x='Fecha', y=data_selection)
+
+    fig = px.line(
+        df2, x="Fecha", y='Aportes Caudal m3/s', 
+        title='Title'
+    )
+
+    fig.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    return fig, fig, fig, fig
+
+# --------------------------------------------------------------------------
+@app.callback(
+    Output("graph9", "figure"),
+    Output("graph10", "figure"),
+    Output("graph11", "figure"),
+    Output("graph12", "figure"),
+    Input('radio_input', 'value'))
+def display_time_series(data_selection):
+    # fig = px.line(df, x='Fecha', y=data_selection)
+
+    data_selection = 'kW/h price mean'
+    temp = df[['Fecha', data_selection]]
+    temp = temp[temp[data_selection].notnull()]
+
+    fig = px.line(
+        temp, x='Fecha', y=data_selection,
+        title="Receipts by Payer Gender and Day of Week")
+
+    fig.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    # :::::::::::::::::::::::
+
+    fig2 = px.scatter(    
+        df, x='Aportes Caudal m3/s', y='Aportes Energía gWh', 
+        title="Wasa wasa 1"
+    )
+
+    fig2.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    fig2.update_traces(
+        marker=dict(size=6, line=dict(width=1, color='#383648')),
+        selector=dict(mode='markers')
+    )
+
+    # :::::::::::::::::::::::
+
+    fig3 = px.box(
+        df, x='Month2', y='Aportes Caudal m3/s', color='Month2',
+        title="Wasa wasa 2")
+
+    fig3.update_layout( # customize font and legend orientation & position
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575',
+        showlegend=False
+    )
+    
+    # :::::::::::::::::::::::
+
+    fig4 = px.scatter(    
+        df, x='Aportes Caudal m3/s', y='kW/h price mean', 
+        title="Wasa wasa 3"
+    )
+
+    fig4.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    fig4.update_traces(
+        marker=dict(size=6, line=dict(width=1, color='#383648')),
+        selector=dict(mode='markers')
+    )
+
+    # :::::::::::::::::::::::
+
+    fig5 = px.line(
+        df, x="Fecha", y='Aportes Caudal m3/s', 
+        title='Wasa wasa 4'
+    )
+
+    fig5.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    # :::::::::::::::::::::::
+
+    return fig2, fig3, fig4, fig5
 
 # @app.callback(
 #     [

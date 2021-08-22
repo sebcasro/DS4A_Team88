@@ -14,8 +14,19 @@ import pandas as pd
 # Add your data
 #####################################
 
+df2 = pd.read_csv('ts_kwh_dataframe.csv')
+df2 = df2.drop(columns=['Unnamed: 0'])
+
 df = pd.read_csv('ts_kwh_dataframe.csv')
-df = df.drop(columns=['Unnamed: 0'])
+df = df.drop('Unnamed: 0', axis = 1)
+df['Fecha'] = pd.to_datetime(df['Fecha'])
+df = df.set_index('Fecha')
+df['Year'] = df.index.year
+df['Month'] = df.index.month
+df["Month2"] = df["Month"].replace({1:"January", 2:"February", 3:"March", 4:"April",
+                                    5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 
+                                    10:"October", 11:"November", 12:"December"})
+df = df.reset_index()
 
 #####################################
 # Styles & Colors
@@ -76,6 +87,7 @@ def navbar():
             dbc.NavItem(dbc.NavLink("Home", href="/home")),
             dbc.NavItem(dbc.NavLink("Dashboard", href="/dashboard")),
             dbc.NavItem(dbc.NavLink("About us", href="/about-us")),
+            dbc.NavItem(dbc.NavLink("Testing", href="/test")),
             # dbc.DropdownMenu(
             #     children=[
             #         dbc.DropdownMenuItem("More pages", header=True),

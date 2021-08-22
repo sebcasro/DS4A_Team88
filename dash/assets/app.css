@@ -42,14 +42,14 @@
     background-color: white;
 }
 
-input {
+/* input {
     height: 30px;
     width: 100%;
     font-size: 1.2rem;
     border: 1px solid #ced4da !important;
     border-radius: .25rem !important;
     padding: 11px 11px 11px 11px !important;
-}
+} */
 
 div.SingleDatePickerInput {
     border: none !important;
@@ -149,6 +149,10 @@ div.DayPicker_focusRegion.DayPicker_focusRegion_1 > div:nth-child(3) > button {
     text-align: justify;
 }
 
+#project_description, .seccion_links{
+    font-size: 1.1rem;
+}
+
 /* --------------------------------------------------- */
 
 .tab-border {
@@ -176,13 +180,14 @@ li > a.nav-link.active, a.nav-link.active:hover{
 }
 
 li > a.nav-link {
-    border: 0px !important;
+    /* border: 0px !important; */
+    border: 1px solid transparent !important;
     border-bottom: 3px solid transparent !important;
 }
 
-li > a.nav-link:hover {
+.nav-tabs > li > a.nav-link:hover {
     border: 1px solid var(--gray1-color) !important;
-    border-bottom: 0px !important;
+    border-bottom: 3px solid transparent !important;
 }
 
 li.nav-item{
@@ -201,4 +206,8 @@ li.nav-item{
     padding-left: 0px !important;
 }
 
-.test { border: 1.0px dashed var(--pink-color); }
+.min-height-84 {
+    min-height: 84px;
+}
+
+.test { border: 0.0px dashed var(--pink-color); }
