@@ -13,7 +13,11 @@ layout_p3 = html.Div([
     html.Div([ dcc.Link('Access application', href='/dashboard') ], className=''),    
 
     dbc.Row([
-        dbc.Col([ html.Span("Col 1") ], className='test', md=6),
+        dbc.Col([ 
+            html.Span("Col 1"),
+            dbc.Button("Click here", color="success"),
+        ], className='test', md=6),
+        
         dbc.Col([ html.Span("Col 2") ], className='test', md=6),
     ], className='box-shadow test'),
 

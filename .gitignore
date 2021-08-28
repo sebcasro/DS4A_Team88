@@ -2,3 +2,4 @@
 datos/
 *.xlsx
 dash/__pycache__/
+dash/aws/

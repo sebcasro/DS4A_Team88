@@ -1,4 +1,4 @@
-,Fecha,kW/h price mean,kW/h price std,Disponibilidad_HIDRAULICA,Disponibilidad_TERMICA,Disponibilidad_SOLAR,Aportes Caudal m3/s,Aportes Energía gWh,Volumen Útil Diario Mm3,Volumen Mm3,Volumen Útil Diario Energía gWh,Volumen Energía gWh,Vertimientos Volumen miles m3,Vertimiento Energía gWh
+,Date,kW/h price daily mean,kW/h price daily std,Hydraulic availability,Thermal availability,Solar availability,Flow contribution (m3/s),Energy contribution (gWh),Daily volume (Mm3),Volume (Mm3),Daily useful volume (gWh),Energy volume (gWh),Volume shedding (m3),Energy shedding (gWh)
 0,2000-01-01,32.86812133333335,2.85773803324704,172.6810500000002,81.60618000000014,,719.1,56.6773,5454.006799999998,6024.512000000001,10732.350531920001,11548.8853,16212.9922,23.887805590430002
 1,2000-01-02,33.034788000000006,3.6742346141747673,172.50399000000027,79.41920000000006,,768.34,54.645199999999996,5421.880800000001,5992.386,10712.492849420001,11529.027600000001,14161.0631,20.584258204010002
 2,2000-01-03,37.272288000000025,7.710766752602717,172.38623000000032,79.41020000000003,,757.5,57.48830000000001,5390.912899999999,5961.4181,10677.373760010001,11493.9081,13370.1628,19.36944777192

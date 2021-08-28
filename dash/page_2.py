@@ -1,384 +1,261 @@
-import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-import dash_daq as daq
+import dash_core_components as dcc
+from layout import df
 
-from datetime import date
-from layout import *
+years = list(reversed(df.Year.unique()))
+years.insert(0, 'All')
 
-layout_p2 = html.Div([
-    # Título prediction
+months = list(df.Month.unique())
+months.insert(0, 'All')
+
+tab2_content = html.Div([
     dbc.Row([
-        dbc.Col([ html.H4("Prediction", className='') ], className='', md=12),
-    ], className='_pink'),
-
-    dbc.Row([
-        # Filtros
         dbc.Col([
-            html.Div([
-                html.H5("Filter", className='test1'),
+            dbc.Tabs([
+                    # ::::::::::::::::::::::::::::::::
+                    # Tab 1
+                    dbc.Tab([
+                        html.Div([
+                            # ::::::::::::::::::::::::::::::::
+                            # Filter row
+                            dbc.Row([
+                                dbc.Col([
+                                    # Year selection dropdown
+                                    dbc.FormGroup([
+                                        dbc.Label("Year", html_for="year_tab1"),
+                                        dcc.Dropdown(
+                                            id="year_tab1", value=years[0], clearable=False,
+                                            options=[
+                                                {"label": x, "value": x} for x in years
+                                            ],
+                                        ),
+                                    ]),
+                                ], className='test', md=1),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([ 
-                    # Dates filter
-                    dbc.Col([ html.Label('Dates') ], className='test1 right', md=4),
+                                dbc.Col([
+                                    # Month selection dropdown
+                                    dbc.FormGroup([
+                                        dbc.Label("Month", html_for="month_tab1"),
+                                        dcc.Dropdown(
+                                            id="month_tab1", value=months[0], clearable=False,
+                                            options=[
+                                                {"label": x, "value": x} for x in months
+                                            ],
+                                        ),
+                                    ]),
+                                ], className='test', md=1),
 
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-1',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
+                                dbc.Col([
+                                    # Energy type dropdown
+                                    dbc.FormGroup([
+                                        dbc.Label("Energy type", html_for="energy_type"),
+                                        dcc.Dropdown(
+                                            id="energy_type", value='All', clearable=False,
+                                            options=[
+                                                {"label": "All" , "value": 'All'},
+                                                {"label": "Hydraulic energy", "value": "Hydraulic energy"},
+                                                {"label": "Thermal energy", "value": "Thermal energy"},
+                                                {"label": "Solar energy", "value": "Solar energy"},
+                                            ],
+                                        ),
+                                    ]),
+                                ], className='test', md=2),
+                            ], className='test min-height-84'),
 
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-1',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                ], className='test1'),
+                            # ::::::::::::::::::::::::::::::::
+                            # First graphs row
+                            dbc.Row([
+                                # Gráfica 1
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph5', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
 
-                html.Hr(),
-                html.H5("Prediction scenarios", className='test1'),
-                html.H6("Power generation availability", className='test1'),
+                                # Gráfica 2
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph6', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
+                            ], className='test'),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([
-                    # Hydraulic energy
-                    dbc.Col([ html.Label('Hydraulic energy') ], className='test1 right', md=4),
+                            # ::::::::::::::::::::::::::::::::
+                            # Second graphs row
+                            dbc.Row([
+                                # Gráfica 3
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph7', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
 
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-2',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-2',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # Percentage input
-                    dbc.Col([ 
-                        daq.NumericInput(
-                            id='percentage-2',
-                            min=0,
-                            max=100,
-                            value=100
-                        )
-                     ], className='test1', md=2),
-                ], className='test1 p-bottom'),
+                                # Gráfica 4
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph8', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
+                            ], className='test'),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([
-                    dbc.Col([ html.Label('Thermal energy') ], className='test1 right', md=4),
-                    
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-3',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-3',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # Percentage input
-                    dbc.Col([ 
-                        daq.NumericInput(
-                            id='percentage-3',
-                            min=0,
-                            max=100,
-                            value=100
-                        )
-                     ], className='test1', md=2),               
-                ], className='test1 p-bottom'),
+                        ], className="test tab-border")
+                    ], label="Power Generated"),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([
-                    dbc.Col([ html.Label('Solar energy') ], className='test1 right', md=4),
-                    
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-4',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-4',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # Percentage input
-                    dbc.Col([ 
-                        daq.NumericInput(
-                            id='percentage-4',
-                            min=0,
-                            max=100,
-                            value=100
-                        )
-                     ], className='test1', md=2),               
-                ], className='test1 p-bottom'),
+                    # ::::::::::::::::::::::::::::::::
+                    # Tab 2
+                    dbc.Tab([
+                        html.Div([
+                            # ::::::::::::::::::::::::::::::::
+                            # Filter row
+                            dbc.Row([
+                                dbc.Col([
+                                    # Year selection dropdown
+                                    dbc.FormGroup([
+                                        dbc.Label("Year", html_for="year_tab2"),
+                                        dcc.Dropdown(
+                                            id="year_tab2", value=years[0], clearable=False,
+                                            options=[
+                                                {"label": x, "value": x} for x in years
+                                            ],
+                                        ),
+                                    ]),
+                                ], className='test', md=1),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([
-                    dbc.Col([ html.Label('Aporte caudal m3/s') ], className='test1 right', md=4),
-                    
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-5',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-5',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # Percentage input
-                    dbc.Col([ 
-                        daq.NumericInput(
-                            id='percentage-5',
-                            min=0,
-                            max=100,
-                            value=100
-                        )
-                     ], className='test1', md=2),               
-                ], className='test1 p-bottom'),
+                                dbc.Col([
+                                    # Month selection dropdown
+                                    dbc.FormGroup([
+                                        dbc.Label("Month", html_for="month_tab2"),
+                                        dcc.Dropdown(
+                                            id="month_tab2", value=months[0], clearable=False,
+                                            options=[
+                                                {"label": x, "value": x} for x in months
+                                            ],
+                                        ),
+                                    ]),
+                                ], className='test', md=1),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([
-                    dbc.Col([ html.Label('Aporte energía gW/h ') ], className='test1 right', md=4),
-                    
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-6',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-6',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # Percentage input
-                    dbc.Col([ 
-                        daq.NumericInput(
-                            id='percentage-6',
-                            min=0,
-                            max=100,
-                            value=100
-                        )
-                     ], className='test1', md=2),               
-                ], className='test1 p-bottom'),
+                                # m3 vs gw option
+                                dbc.Col([
+                                    dbc.FormGroup([
+                                        dbc.Label("Choose one"),
+                                        dbc.RadioItems(
+                                            id="radio_input", value="m3/s", inline=True,
+                                            options=[
+                                                {"label": "m3/s", "value": "m3/s"},
+                                                {"label": "gW", "value": "gW"},
+                                            ],
+                                        ),
+                                    ])
+                                ], className='test', md=2),
+                            ], className='test min-height-84'),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([
-                    dbc.Col([ html.Label('Volumen útil diario Mm3') ], className='test1 right', md=4),
-                    
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-7',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-7',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # Percentage input
-                    dbc.Col([ 
-                        daq.NumericInput(
-                            id='percentage-7',
-                            min=0,
-                            max=100,
-                            value=100
-                        )
-                     ], className='test1', md=2),               
-                ], className='test1 p-bottom'),
+                            # ::::::::::::::::::::::::::::::::
+                            # First graphs row
+                            dbc.Row([
+                                # Gráfica 1
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph9', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
 
-                # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                dbc.Row([
-                    dbc.Col([ html.Label('Vertimientos miles m3') ], className='test1 right', md=4),
-                    
-                    # DatePickerSingle - start date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-start-8',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='Start date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # DatePickerSingle - end date
-                    dbc.Col([ 
-                        dcc.DatePickerSingle(
-                            id='data-end-8',
-                            min_date_allowed=date(1995, 8, 5),
-                            max_date_allowed=date(2017, 9, 19),
-                            initial_visible_month=date(2017, 8, 5),
-                            placeholder='End date',
-                            with_portal=True,
-                            display_format='DD/MM/YYYY'
-                        ),
-                    ], className='test1', md=3),
-                    
-                    # Percentage input
-                    dbc.Col([ 
-                        daq.NumericInput(
-                            id='percentage-8',
-                            min=0,
-                            max=100,
-                            value=100
-                        )
-                     ], className='test1', md=2),
-                ], className='test1 p-bottom'),
+                                # Gráfica 2
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph10', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
+                            ], className='test'),
 
-                # Buttons
-                dbc.Row([
-                    dbc.Col([ ], className='test1', md=2),
-                    dbc.Col([ 
-                        # html.Button('Button 1', id='btn-nclicks-1', n_clicks=0),
-                        dbc.Button("Clear changes", color="primary", block=True, className="mr-1", id='clear_button'),
-                    ], className='col_button', md=4),
-                    dbc.Col([ 
-                        # html.Button('Button 1', id='btn-nclicks-1', n_clicks=0),
-                        dbc.Button("Apply changes", color="primary", block=True, className="mr-1", id='changes_button'),
-                    ], className='col_button', md=4),
-                    dbc.Col([ ], className='test1', md=2),
+                            # ::::::::::::::::::::::::::::::::
+                            # Second graphs row
+                            dbc.Row([
+                                # Gráfica 3
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph11', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
 
-                ], className='test1'),
-                
-            ], className='box-shadow', style={'height': '100%'})
-        ], className='box test1', md=4),
+                                # Gráfica 4
+                                dbc.Col([
+                                    html.Div([
+                                        dcc.Graph(id='graph12', style={'height': '64vh'}, className='') 
+                                    ], className='test')
+                                ], className='test', md=6),
+                            ], className='test'),
+
+                        ], className="test tab-border")
+                    ], label="Contribution"),
+
+
+
+                    # ::::::::::::::::::::::::::::::::
+            ])
+        ], className='test no-side-padding', id='', md=12),
+    ], className='test'),
+], className="test tab-border2")
+
+
+tab1_content = html.Div([
+    dbc.Row([
+        dbc.Col([
+            html.H5("Filters"),
+            
+            dbc.FormGroup([
+                dbc.Label("Temp", html_for="temp_dropdown"),
+                dcc.Dropdown(
+                    id="temp_dropdown", value='01', clearable=False,
+                    options=[
+                        {"label": "Temp primero", "value": '01'},
+                        {"label": "Temp segundo", "value": "02"},                    
+                        {"label": "Temp tercero", "value": "03"},
+                    ],
+                ),
+            ]),
+        ], className='test borde-right', id='', md=4),
+
 
         # Gráfica principal
-        dbc.Col([ html.Div([ dcc.Graph(id='graph1', style={'height': '48vh'}, className='') ], className='box-shadow') ], className='box', md=8),
-    ]),
+        dbc.Col([ 
+            html.Div([ 
+                dcc.Graph(id='graph1', style={'height': '52vh'}, className='')
+            ], className='test')
+        ], className='test', md=8),
 
-    html.Hr(),
-
-    # Título description
+    ], className='test'),
+    
     dbc.Row([
-        dbc.Col([ html.H4("Description", className='') ], className='_pink', md=12),
-    ], className='class'),
+        dbc.Col([ 
+            html.Div([ 
+                dcc.Graph(id='graph2', style={'height': '32vh'}, className='')
+            ], className='test')
+        ], className='test', md=4),
 
+        dbc.Col([ 
+            html.Div([ 
+                dcc.Graph(id='graph3', style={'height': '32vh'}, className='')
+            ], className='test')
+        ], className='test', md=4),
+
+        dbc.Col([ 
+            html.Div([ 
+                dcc.Graph(id='graph4', style={'height': '32vh'}, className='')
+            ], className='test')
+        ], className='test', md=4),
+
+    ], className='test borde-top'),
+], className="test tab-border")
+
+
+layout_p2 = html.Div([
     dbc.Row([
-        # Gráfica 2
-        dbc.Col([ html.Div([ dcc.Graph(id='graph2', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
-
-        # Gráfica 3
-        dbc.Col([ html.Div([ dcc.Graph(id='graph3', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
-
-        # Gráfica 4
-        dbc.Col([ html.Div([ dcc.Graph(id='graph4', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
-    ], className=''),
+        dbc.Col([
+            dbc.Tabs([
+                dbc.Tab(tab1_content, label="Prediction"),
+                dbc.Tab(tab2_content, label="Description"),
+            ])
+        ], className='test no-side-padding', id='hola', md=12),
+    ], className='test card-box-border'),
 ])

@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  app:
+    build: . 
+    volumes:
+      - .:/dash_app
+    ports:
+      - 8050:8050
+    image: app:dash_app
+    container_name: project_app
+    command: /bin/sh -c "python3 index.py"

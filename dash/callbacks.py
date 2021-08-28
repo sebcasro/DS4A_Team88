@@ -5,26 +5,32 @@ from layout import *
 from page_1 import layout_p1
 from page_2 import layout_p2
 from page_3 import layout_p3
-from jairo import layout_test
+from layout__dashboard__old import testing
 from app import app
 
 import plotly.express as px
 
+
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 @app.callback(
-    Output("graph1", "figure"),
-    Output("graph2", "figure"),
-    Output("graph3", "figure"),
-    Output("graph4", "figure"),    
+    Output("graph1_borrar", "figure"),
+    Output("graph2_borrar", "figure"),
+    Output("graph3_borrar", "figure"),
+    Output("graph4_borrar", "figure"),    
     Input('data-start-1', 'date'))
 def display_time_series(data_selection):
     # fig = px.line(df, x='Fecha', y=data_selection)
 
-    data_selection = 'kW/h price mean'
-    temp = df[['Fecha', data_selection]]
+    data_selection = 'kW/h price daily mean'
+    temp = df[['Date', data_selection]]
     temp = temp[temp[data_selection].notnull()]
 
     fig = px.line(
-        temp, x='Fecha', y=data_selection,
+        temp, x='Date', y=data_selection,
         title="Receipts by Payer Gender and Day of Week")
 
     fig.update_layout( # customize font and legend orientation & position
@@ -33,49 +39,29 @@ def display_time_series(data_selection):
         font_color='#757575'
     )
     return fig, fig, fig, fig
-
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
 # --------------------------------------------------------------------------
 @app.callback(
-    Output("graph5", "figure"),
-    Output("graph6", "figure"),
-    Output("graph7", "figure"),
-    Output("graph8", "figure"),
-    Input('energy_type', 'value'))
-def display_time_series(data_selection):
+    Output("graph1", "figure"),
+    Output("graph2", "figure"),
+    Output("graph3", "figure"),
+    Output("graph4", "figure"),
+    Input('temp_dropdown', 'value'))
+def prediction(data_selection):
     # fig = px.line(df, x='Fecha', y=data_selection)
 
-    fig = px.line(
-        df2, x="Fecha", y='Aportes Caudal m3/s', 
-        title='Title'
-    )
-
-    fig.update_layout(
-        # font_family="Rockwell",
-        margin=dict(l=80, r=20, t=75, b=20),
-        font_color='#757575'
-    )
-
-    return fig, fig, fig, fig
-
-# --------------------------------------------------------------------------
-@app.callback(
-    Output("graph9", "figure"),
-    Output("graph10", "figure"),
-    Output("graph11", "figure"),
-    Output("graph12", "figure"),
-    Input('radio_input', 'value'))
-def display_time_series(data_selection):
-    # fig = px.line(df, x='Fecha', y=data_selection)
-
-    data_selection = 'kW/h price mean'
-    temp = df[['Fecha', data_selection]]
+    data_selection = 'kW/h price daily mean'
+    temp = df[['Date', data_selection]]
     temp = temp[temp[data_selection].notnull()]
 
-    fig = px.line(
-        temp, x='Fecha', y=data_selection,
-        title="Receipts by Payer Gender and Day of Week")
+    # :::::::::::::::::::::::
 
-    fig.update_layout(
+    fig1 = px.line(temp, x='Date', y=data_selection, title="Wasa wasa 1")
+
+    fig1.update_layout(
         # font_family="Rockwell",
         margin=dict(l=80, r=20, t=75, b=20),
         font_color='#757575'
@@ -83,10 +69,7 @@ def display_time_series(data_selection):
 
     # :::::::::::::::::::::::
 
-    fig2 = px.scatter(    
-        df, x='Aportes Caudal m3/s', y='Aportes Energía gWh', 
-        title="Wasa wasa 1"
-    )
+    fig2 = px.line(temp, x='Date', y=data_selection, title="Wasa wasa 2")
 
     fig2.update_layout(
         # font_family="Rockwell",
@@ -94,18 +77,151 @@ def display_time_series(data_selection):
         font_color='#757575'
     )
 
-    fig2.update_traces(
+    # :::::::::::::::::::::::
+
+    fig3 = px.line(temp, x='Date', y=data_selection, title="Wasa wasa 3")
+
+    fig3.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    # :::::::::::::::::::::::
+
+    fig4 = px.line(temp, x='Date', y=data_selection, title="Wasa wasa 4")
+
+    fig4.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    # :::::::::::::::::::::::
+
+    return fig1, fig2, fig3, fig4
+
+# --------------------------------------------------------------------------
+@app.callback(
+    Output("graph5", "figure"),
+    Output("graph6", "figure"),
+    Output("graph7", "figure"),
+    Output("graph8", "figure"),
+    Input('year_tab1', 'value'),
+    Input('month_tab1', 'value'),
+    Input('energy_type', 'value'))
+def description_power_generated(year, month, data_selection):
+
+    temp = df.copy()
+    if year != 'All':
+        temp = temp[temp['Year']==year]
+
+    if month != 'All':
+        temp = temp[temp['Month']==month]
+
+    if data_selection == 'All':
+        data_var = 'Total availability'
+    elif data_selection == 'Hydraulic energy':
+        data_var = 'Hydraulic availability'
+    elif data_selection == 'Thermal energy':
+        data_var = 'Thermal availability'
+    elif data_selection == 'Solar energy':
+        data_var = 'Solar availability'
+    
+    temp = temp[temp[data_var].fillna(0)!=0]
+
+    temp2 = df.copy()
+    temp2 = temp2.groupby(['Month2', 'Month'])['Total availability'].agg('sum')
+    temp2 = temp2.reset_index().drop('Month2', axis = 1)
+    
+    # :::::::::::::::::::::::
+
+    fig = px.line(df2, x="Date", y='Flow contribution (m3/s)', title="Wasa wasa 8")
+
+    fig.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    # :::::::::::::::::::::::
+
+    fig5 = px.bar(temp2, x='Month', y='Total availability', title="Wasa wasa 5")
+
+    # :::::::::::::::::::::::
+
+    fig6 = px.bar(temp2, x='Month', y='Total availability', title="Wasa wasa 6")
+
+    # :::::::::::::::::::::::
+
+    fig7 = px.scatter(temp, x=data_var, y='kW/h price daily mean', title="Wasa wasa 7",
+        trendline="ols", trendline_color_override="#ff516e"
+    )
+
+    fig7.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    fig7.update_traces(
         marker=dict(size=6, line=dict(width=1, color='#383648')),
         selector=dict(mode='markers')
     )
 
     # :::::::::::::::::::::::
 
-    fig3 = px.box(
-        df, x='Month2', y='Aportes Caudal m3/s', color='Month2',
-        title="Wasa wasa 2")
+    return fig5, fig6, fig7, fig
 
-    fig3.update_layout( # customize font and legend orientation & position
+# --------------------------------------------------------------------------
+@app.callback(
+    Output("graph9", "figure"),
+    Output("graph10", "figure"),
+    Output("graph11", "figure"),
+    Output("graph12", "figure"),
+    Input('year_tab2', 'value'),
+    Input('month_tab2', 'value'),
+    Input('radio_input', 'value'))
+def description_contribution(year, month, data_selection):
+
+    temp = df.copy()
+    if year != 'All':
+        temp = temp[temp['Year']==year]
+
+    if month != 'All':
+        temp = temp[temp['Month']==month]
+
+    if data_selection == 'm3/s':
+        data_var = 'Flow contribution (m3/s)'
+    else:
+        data_var = 'Energy contribution (gWh)'
+
+    # :::::::::::::::::::::::
+
+    fig9 = px.scatter(    
+        temp, x='Flow contribution (m3/s)', y='Energy contribution (gWh)', 
+        title="Wasa wasa 9",
+        trendline="ols", trendline_color_override="#ff516e"
+    )
+
+    fig9.update_layout(
+        # font_family="Rockwell",
+        margin=dict(l=80, r=20, t=75, b=20),
+        font_color='#757575'
+    )
+
+    fig9.update_traces(
+        marker=dict(size=6, line=dict(width=1, color='#383648')),
+        selector=dict(mode='markers')
+    )
+
+    # :::::::::::::::::::::::
+
+    fig10 = px.box(
+        temp, x='Month', y=data_var, color='Month',
+        title="Wasa wasa 10")
+
+    fig10.update_layout( # customize font and legend orientation & position
         # font_family="Rockwell",
         margin=dict(l=80, r=20, t=75, b=20),
         font_color='#757575',
@@ -114,30 +230,31 @@ def display_time_series(data_selection):
     
     # :::::::::::::::::::::::
 
-    fig4 = px.scatter(    
-        df, x='Aportes Caudal m3/s', y='kW/h price mean', 
-        title="Wasa wasa 3"
+    fig11 = px.scatter(    
+        temp, x=data_var, y='kW/h price daily mean', 
+        title="Wasa wasa 11",
+        trendline="ols", trendline_color_override="#ff516e"
     )
 
-    fig4.update_layout(
+    fig11.update_layout(
         # font_family="Rockwell",
         margin=dict(l=80, r=20, t=75, b=20),
         font_color='#757575'
     )
 
-    fig4.update_traces(
+    fig11.update_traces(
         marker=dict(size=6, line=dict(width=1, color='#383648')),
         selector=dict(mode='markers')
     )
 
     # :::::::::::::::::::::::
 
-    fig5 = px.line(
-        df, x="Fecha", y='Aportes Caudal m3/s', 
-        title='Wasa wasa 4'
+    fig12 = px.line(
+        temp, x="Date", y=data_var, 
+        title='Wasa wasa 12'
     )
 
-    fig5.update_layout(
+    fig12.update_layout(
         # font_family="Rockwell",
         margin=dict(l=80, r=20, t=75, b=20),
         font_color='#757575'
@@ -145,7 +262,7 @@ def display_time_series(data_selection):
 
     # :::::::::::::::::::::::
 
-    return fig2, fig3, fig4, fig5
+    return fig9, fig10, fig11, fig12
 
 # @app.callback(
 #     [
@@ -201,16 +318,20 @@ def render_page_content(pathname):
         return layout_p3
 
     elif pathname == "/test":
-        return layout_test
+        return testing
 
-    # If the user tries to reach a different page, return a 404 message
-    return dbc.Jumbotron(
-        [
-            html.H1("404: Not found", className="text-danger"),
-            html.Hr(),
-            html.P(f"The pathname {pathname} was not recognised..."),
-        ]
-    )
+    else:
+        layout_pError = html.Div([
+            dbc.Jumbotron([
+                html.H1("404: Not found", className="text-danger"),
+                html.P(f"The pathname {pathname} was not recognised.", className="lead",),
+                html.Hr(className="my-2"),
+                html.P("Click on the above button to return to the main page"),
+                html.P(dbc.Button("Visit home page", color="primary", href="/"), className="lead"),
+            ], className='white-background')
+        ])
+
+        return layout_pError
 
 # callback del procentaje
 # @app.callback(

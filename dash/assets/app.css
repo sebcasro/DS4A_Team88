@@ -5,8 +5,18 @@
     --dark-gray:#383648;
 }
 
-  body {
+body {
     background-color: var(--gray1-color);
+    
+    /* no selection */
+    -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+      
 }
 
 ._pink {
@@ -208,6 +218,18 @@ li.nav-item{
 
 .min-height-84 {
     min-height: 84px;
+}
+
+.borde-top {
+    border-top: 1px solid var(--gray1-color) !important;    
+}
+
+.borde-right {
+    border-right: 1px solid var(--gray1-color) !important;    
+}
+
+.white-background {
+    background-color: white;
 }
 
 .test { border: 0.0px dashed var(--pink-color); }

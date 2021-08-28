@@ -1,0 +1,40 @@
+--------------------------------------------------
+ ::: Dockerfile
+
+FROM python:3.7-slim-buster
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /dash_app
+
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+--------------------------------------------------
+::: docker-compose.yml
+
+version: "3.7"
+services:
+  app:
+    build: . 
+    volumes:
+      - .:/dash_app
+    ports:
+      - 8050:8050
+    image: app:dash_app
+    container_name: project_app
+    command: /bin/sh -c "python3 index.py"
+--------------------------------------------------
+sudo docker-compose build
+sudo docker-compose run --rm app
+sudo docker-compose up
+--------------------------------------------------
+sudo docker images
+sudo docker rmi -f
+
+sudo docker ps -a
+sudo docker rm -v
+--------------------------------------------------
+sudo docker inspect -f "{{ .HostConfig.RestartPolicy }}" project_app
+sudo docker update --restart=always project_app
+--------------------------------------------------

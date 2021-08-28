@@ -19,14 +19,17 @@ df2 = df2.drop(columns=['Unnamed: 0'])
 
 df = pd.read_csv('ts_kwh_dataframe.csv')
 df = df.drop('Unnamed: 0', axis = 1)
-df['Fecha'] = pd.to_datetime(df['Fecha'])
-df = df.set_index('Fecha')
+df['Date'] = pd.to_datetime(df['Date'])
+df = df.set_index('Date')
 df['Year'] = df.index.year
-df['Month'] = df.index.month
-df["Month2"] = df["Month"].replace({1:"January", 2:"February", 3:"March", 4:"April",
+df['Month2'] = df.index.month
+df["Month"] = df["Month2"].replace({1:"January", 2:"February", 3:"March", 4:"April",
                                     5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 
                                     10:"October", 11:"November", 12:"December"})
+
+df["Total availability"] = df["Hydraulic availability"].fillna(0) + df["Thermal availability"].fillna(0) + df["Solar availability"].fillna(0)
 df = df.reset_index()
+
 
 #####################################
 # Styles & Colors
@@ -88,56 +91,14 @@ def navbar():
             dbc.NavItem(dbc.NavLink("Dashboard", href="/dashboard")),
             dbc.NavItem(dbc.NavLink("About us", href="/about-us")),
             dbc.NavItem(dbc.NavLink("Testing", href="/test")),
-            # dbc.DropdownMenu(
-            #     children=[
-            #         dbc.DropdownMenuItem("More pages", header=True),
-            #         dbc.DropdownMenuItem("Page 2", href="/page-2"),
-            #         dbc.DropdownMenuItem("Page 3", href="/page-3"),
-            #     ],
-            #     nav=True,
-            #     in_navbar=True,
-            #     label="More",
-            # ),
         ],
         brand="DS4A - Team 88",
-        brand_href="#",
+        brand_href="/",
         color="dark",
         dark=True,
         fluid=True,
     )
     return navbar
-
-# def sidebar():
-#     """
-#     Creates side bar
-#     """
-#     navbar = html.Div(
-#     [
-#         html.H2("Sidebar", className="display-4"),
-#         html.H5("bla bla bla Dashboard", style={'textAlign':'center'}),
-#         html.P(
-#             "A simple sidebar layout with navigation links", className="lead"
-#         ),
-#         html.Hr(),
-
-#         dbc.Nav(
-#             [
-#                 dbc.NavLink("Page 1", href="/page-1", id="page-1-link"),
-#                 dbc.NavLink("Page 2", href="/page-2", id="page-2-link"),
-#                 dbc.NavLink("Page 3", href="/page-3", id="page-3-link"),
-#             ],
-#             vertical=True,
-#             pills=True,
-#         ),
-
-#         html.Hr(),
-
-        
-#     ],    
-#     id='sidebar',
-#     style=SIDEBAR_STYLE,
-#     )  
-#     return navbar
 
 def content():
     content = html.Div(id="page-content", style=CONTENT_STYLE_NO_SIDEBAR)
