@@ -361,7 +361,7 @@ testing = html.Div([
         ], className='box test1', md=4),
 
         # Gráfica principal
-        dbc.Col([ html.Div([ dcc.Graph(id='graph1_borrar', style={'height': '48vh'}, className='') ], className='box-shadow') ], className='box', md=8),
+        # dbc.Col([ html.Div([ dcc.Graph(id='graph1_borrar', style={'height': '48vh'}, className='') ], className='box-shadow') ], className='box', md=8),
     ]),
 
     html.Hr(),
@@ -373,12 +373,12 @@ testing = html.Div([
 
     dbc.Row([
         # Gráfica 2
-        dbc.Col([ html.Div([ dcc.Graph(id='graph2_borrar', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
+        # dbc.Col([ html.Div([ dcc.Graph(id='graph2_borrar', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
 
         # Gráfica 3
-        dbc.Col([ html.Div([ dcc.Graph(id='graph3_borrar', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
+        # dbc.Col([ html.Div([ dcc.Graph(id='graph3_borrar', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
 
         # Gráfica 4
-        dbc.Col([ html.Div([ dcc.Graph(id='graph4_borrar', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
+        # dbc.Col([ html.Div([ dcc.Graph(id='graph4_borrar', style={'height': '32vh'}, className='') ], className='box-shadow') ], className='box', md=4),
     ], className=''),
 ])
