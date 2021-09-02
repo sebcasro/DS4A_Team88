@@ -438,14 +438,22 @@ def description_contribution(year, month, data_selection):
 
         if data_selection == 'm3/s':
             data_var = 'Flow contribution (m3/s)'
+            fig9_title = 'Scatterplot between flow contribution vs energy contribution'
+            fig10_title = 'Boxplot of the flow contribution by month'
+            fig11_title = 'Scatterplot between the flow contribution with the energy price'
+            fig12_title = 'Time serie of flow contribution '
         else:
             data_var = 'Energy contribution (gWh)'
+            fig9_title = 'Scatterplot between flow contribution vs energy contribution'
+            fig10_title = 'Boxplot of the energy contribution by month description'
+            fig11_title = 'Scatterplot between the energy contribution with the energy price'
+            fig12_title = 'Time serie of energy contribution'
 
         # :::::::::::::::::::::::
 
         fig9 = px.scatter(    
             temp, x='Flow contribution (m3/s)', y='Energy contribution (gWh)', 
-            title="Scatterplot between flow contribution vs energy contribution",
+            title=fig9_title,
             trendline="ols", trendline_color_override="#ff516e"
         )
 
@@ -464,7 +472,7 @@ def description_contribution(year, month, data_selection):
 
         fig10 = px.box(
             temp, x='Month', y=data_var, color='Month',
-            title='Boxplot of the flow contribution ("energy contribution") by month')
+            title=fig10_title)
 
         fig10.update_layout( # customize font and legend orientation & position
             # font_family="Rockwell",
@@ -477,7 +485,7 @@ def description_contribution(year, month, data_selection):
 
         fig11 = px.scatter(    
             temp, x=data_var, y='kW/h price daily mean', 
-            title='Scatterplot between flow contribution ("energy contribution") with the energy price',
+            title=fig11_title,
             trendline="ols", trendline_color_override="#ff516e"
         )
 
@@ -496,7 +504,7 @@ def description_contribution(year, month, data_selection):
 
         fig12 = px.line(
             temp, x="Date", y=data_var, 
-            title='Time serie of flow contribution ("energy contribution")'
+            title=fig12_title
         )
 
         fig12.update_layout(
