@@ -335,7 +335,7 @@ tab2_content = html.Div([
 
             dbc.FormGroup([
                 dbc.Label("Impulse magnitude", html_for="impulse_magnitude"),
-                dbc.Input(id='impulse_magnitude', type="number", placeholder="Integer number between -100 and 100", min=-1000, max=1000, step=1),
+                dbc.Input(id='impulse_magnitude', type="number", placeholder="Integer number between -1000 and 1000", min=-1000, max=1000, step=1),
             ]),
 
             dbc.Checklist(

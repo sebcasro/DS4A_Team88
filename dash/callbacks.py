@@ -72,7 +72,7 @@ def impulse(fig1, zoom_year, error_text, impulse_date, forecasting_model, variab
                 margin=dict(l=60, r=0, t=50, b=70),
                 font_color='#757575'
             )
-            
+
             return fig1, '', None, 0, 0, None, [], []
 
         # click apply_impulse_button
@@ -99,9 +99,9 @@ def impulse(fig1, zoom_year, error_text, impulse_date, forecasting_model, variab
                 del projection_df_temp
                 return fig1, "Error: you need to write an impulse magnitude.", impulse_date, forecasting_model, variable_shocked, impulse_magnitude, cumulative_impulse, forecast_convergence
 
-            # if (impulse_magnitude < -100) or (impulse_magnitude > 100):
-            #     del projection_df_temp
-            #     return fig1, "Error: (Impulse magnitude) you need to write an integer number between -100 and 100."
+            if (impulse_magnitude < -1000) or (impulse_magnitude > 1000):
+                del projection_df_temp
+                return fig1, "Error: (Impulse magnitude) you need to write an integer number between -1000 and 1000."
             # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
             forecasting_model_2 = f'kW/h price {forecasting_model}'
