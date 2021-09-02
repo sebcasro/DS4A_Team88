@@ -2,6 +2,13 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 from layout import *
+from projection import *
+
+import plotly.express as px
+from datetime import date
+
+years_projection = list(reversed(projection_df.Year.unique()))
+years_projection.insert(0, 'All')
 
 years = list(reversed(df.Year.unique()))
 years.insert(0, 'All')
@@ -9,10 +16,23 @@ years.insert(0, 'All')
 months = list(df.Month.unique())
 months.insert(0, 'All')
 
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Gráfica principal
+projection_df_temp = projection_df.copy()
+main_fig = px.line(projection_df_temp, x="Date", y="value", color='model', title="kW/h price forecasting")
+
+main_fig.update_layout(
+    # font_family="Rockwell",
+    margin=dict(l=60, r=0, t=50, b=70),
+    font_color='#757575'
+)
+del projection_df_temp
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 tab1_content = html.Div([
     dbc.Row([
         dbc.Col([
-            html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
+            html.P('Here the dataset available as input to predict the energy stock price can be explored in depth in order to identify the more relevant information. With the help of different types of graphs of the time series dataset, the behavior, trends, seasonality, other patterns and interesting relations between variables can be identified and easily explored. Also the idea is to provide you a better understanding of the data set variables available , as you can investigate them and summarize their main characteristics customizing the graphics presented below.'),
             html.Hr()
         ], className='test', id='tab_text_description', md=12),
 
@@ -103,7 +123,14 @@ tab1_content = html.Div([
                                 dbc.Col([
                                     html.Div([
                                         dcc.Graph(id='graph7', style={'height': '64vh'}, className=''),
-                                        html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'), 
+                                        html.P(
+                                            id='graph7_description', 
+                                            children=[
+                                                'On this ',
+                                                dcc.Link('scatter plot,', href='https://en.wikipedia.org/wiki/Scatter_plot', target='_blank'),
+                                                ' we can see the relationship between the total availability and the price energy market in Colombia.',
+                                            ]
+                                        ),
                                     ], className='test')
                                 ], className='test', md=6),
 
@@ -259,57 +286,147 @@ tab2_content = html.Div([
 
         dbc.Col([
 
-            html.H5("Filters"),
+            html.H5("Prediction Impulse Scenario"),
+
+            dbc.Label("Impulse input date: ", html_for="impulse_date"),
+
+            dcc.DatePickerSingle(
+                id='impulse_date',
+                min_date_allowed=date(2021, 7, 14),
+                # max_date_allowed=date(2017, 9, 19),
+                initial_visible_month=date(2021, 7, 14),
+                placeholder='Pick a date',
+                with_portal=True,
+                display_format='DD/MM/YYYY',
+            ),
             
+            
+            html.Br(),
+
             dbc.FormGroup([
-                dbc.Label("Temp", html_for="temp_dropdown"),
+                dbc.Label("Forecasting model", html_for="forecasting_model"),
                 dcc.Dropdown(
-                    id="temp_dropdown", value='01', clearable=False,
+                    id="forecasting_model", value=0, clearable=False,
                     options=[
-                        {"label": "Temp primero", "value": '01'},
-                        {"label": "Temp segundo", "value": "02"},                    
-                        {"label": "Temp tercero", "value": "03"},
+                        {"label": 'Select a forecasting model', "value": 0},
+                        {"label": 'ARIMA', "value": 'ARIMA'},
+                        {"label": 'SARIMAX', "value": 'SARIMAX'},
+                        {"label": 'Neural Prophet', "value": 'Neural Prophet'},
+                        {"label": 'mean models', "value": 'mean models'},
                     ],
                 ),
             ]),
-        ], className='test borde-right', md=4),
+
+            dbc.FormGroup([
+                dbc.Label("Variable affected by impulse", html_for="variable_shocked"),
+                dcc.Dropdown(
+                    id="variable_shocked", value=0, clearable=False,
+                    options=[
+                        {"label": 'Select a variable', "value": 0},
+                        {"label": 'Hydraulic availability', "value": 'Hydraulic availability'},
+                        {"label": 'Thermal availability', "value": 'Thermal availability'},
+                        {"label": 'Flow contribution', "value": 'Flow contribution'},
+                        {"label": 'Daily volume (Mm3)', "value": 'Daily volume (Mm3)'},
+                        {"label": 'Volume (Mm3)', "value": 'Volume (Mm3)'},
+                        {"label": 'Daily useful Volume (gWh)', "value": 'Daily useful Volume (gWh)'},
+                    ],
+                ),
+            ]),
+
+            dbc.FormGroup([
+                dbc.Label("Impulse magnitude", html_for="impulse_magnitude"),
+                dbc.Input(id='impulse_magnitude', type="number", placeholder="Integer number between -100 and 100", min=-1000, max=1000, step=1),
+            ]),
+
+            dbc.Checklist(
+                options=[{"label": "Cumulative impulse", "value": 0}],
+                value=[], id="cumulative_impulse", switch=True,
+            ),
+
+            dbc.Checklist(
+                options=[{"label": "Convergence to the forecast", "value": 0}],
+                value=[], id="forecast_convergence", switch=True,
+            ),
+
+            html.Br(),
+            dbc.Button("Apply impulse", color="primary", block=True, className="mr-1", id='apply_impulse_button', n_clicks=0),
+
+            html.Br(),
+            dbc.Button("Clear impulse", color="primary", block=True, className="mr-1", id='clear_button', n_clicks=0),
+
+            html.Br(),
+            html.H6(id='error_text', children=['']),
+
+        ], className='test borde-right', md=3),
 
 
         # Gráfica principal
-        dbc.Col([ 
-            html.Div([ 
-                dcc.Graph(id='graph1', style={'height': '52vh'}, className=''),
-                html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
-            ], className='test')
-        ], className='test', md=8),
+        dbc.Col([
+            
+            # Zoom year
+            dbc.Row([
+                dbc.Col([
+                    dbc.FormGroup([
+                        dbc.Label("Zoom graph by Year:", html_for="prediction_zoom_year"),
+                        dcc.Dropdown(
+                            id="prediction_zoom_year", value=years_projection[0], clearable=False,
+                            options=[{"label": x, "value": x} for x in years_projection],
+                        ),
+                    ]),
+                ], className='test', md=2),
+            ], className='test'),
+
+            # Gráfica principal
+            dbc.Row([
+                dbc.Col([
+                    html.Div([ 
+                        dcc.Graph(id='graph1', style={'height': '52vh'}, className='', figure=main_fig),
+                        # html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
+                    ], className='test')
+                ], className='test', md=12),
+            ], className='test'),
+        ], className='test', md=9),
+
+
 
     ], className='test'),
     
-    # dbc.Row([
-    #     dbc.Col([ 
-    #         html.Div([ 
-    #             dcc.Graph(id='graph2', style={'height': '32vh'}, className=''),
-    #             html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
-    #         ], className='test')
-    #     ], className='test', md=4),
-
-    #     dbc.Col([ 
-    #         html.Div([ 
-    #             dcc.Graph(id='graph3', style={'height': '32vh'}, className=''),
-    #             html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
-    #         ], className='test')
-    #     ], className='test', md=4),
-
-    #     dbc.Col([ 
-    #         html.Div([
-    #             dcc.Graph(id='graph4', style={'height': '32vh'}, className=''),
-    #             html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
-    #         ], className='test')
-    #     ], className='test', md=4),
-
-    # ], className='test borde-top'),
+    dbc.Row([
+        dbc.Col([ 
+            html.Div([
+                html.Br(),
+                html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
+            ], className='test')
+        ], className='test', md=12),
+    ], className='test borde-top'),
 ], className="test tab-border")
 
+tab3_content = html.Div([    
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Availability, ')), 'Maximum amount of net power (expressed as a whole value in megawatts) that a generator can supply to the system during the time interval determined for economic dispatch or redispatch, reported by the company that owns the generator.']),], className='test', md=12),], className='test'),
+
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Discharges, ')), 'are the amount of water that must be evacuated from reservoirs through spillways when the reservoir exceeds its maximum storage capacity, generally during rainy seasons. Spillways are a hydraulic structure built to allow free or controlled passage of water stored in a reservoir when high reservoir levels are reached.']),], className='test', md=12),], className='test'),
+    
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Energy stock price, ')), 'Under normal operating conditions, it corresponds to the highest offer price of the units with centralized dispatch that have been programmed to generate in the ideal dispatch and that do not present inflexibility. It represents a single price for the interconnected system in each hourly period. ']),], className='test', md=12),], className='test'),
+
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Flow, ')), "is the amount of water contributed by one or more rivers to a reservoir of the National Interconnected System. The sum of all the country's flows is known as aggregate flow and is presented in Mm3, GWh and percentage."]),], className='test', md=12),], className='test'),
+
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Inflows, ')), 'are the amount of water that reaches the reservoirs of the National Interconnected System. It is generally compared with the historical average of water received by the reservoirs for that same time of the year. It is obtained with the average of the values for each month for all the years with available information.']),], className='test', md=12),], className='test'),
+
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Reserves, ')), 'are the total amount of water stored in the reservoirs.']),], className='test', md=12),], className='test'),
+
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Reservoirs, ')), 'are an accumulation of water produced by the construction of a dam on the bed of a river or stream, which partially or totally closes its course.']),], className='test', md=12),], className='test'),
+
+    dbc.Row([dbc.Col([
+        html.P(children=[html.Strong(html.I('Usable volume, ')), 'is the available amount of the reserve that can be used for generation, since for technical reasons or reservoir construction specifications, not all the water contained in the reservoirs can be used for electricity generation. It is presented in Mm3, GWh and percentage and is what determines the capacity, which is the amount of energy that can be produced by each reservoir.']),], className='test', md=12),], className='test'),
+    
+], className="test tab-border")
 
 layout_p2 = html.Div([
     dbc.Row([
@@ -317,6 +434,7 @@ layout_p2 = html.Div([
             dbc.Tabs([
                 dbc.Tab(tab1_content, label="Description"),
                 dbc.Tab(tab2_content, label="Prediction"),
+                dbc.Tab(tab3_content, label="Glossary"),
             ])
         ], className='test no-side-padding', id='hola', md=12),
     ], className='test card-box-border'),

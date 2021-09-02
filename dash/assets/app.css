@@ -6,6 +6,7 @@
 }
 
 body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
     background-color: var(--gray1-color);
     
     /* no selection */
@@ -61,8 +62,28 @@ body {
     padding: 11px 11px 11px 11px !important;
 } */
 
+
+
+/* input > #date {
+    padding-top: 5 !important;
+    padding-bottom: 5 !important;
+} */
+
+.DateInput_input {
+    font-size: 1rem !important;
+    color: #333 !important;
+    font-weight: 400 !important;
+}
+
 div.SingleDatePickerInput {
     border: none !important;
+    /* border: 1px solid #aaa !important; */
+
+    /* border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    border-spacing: 0 !important;
+    border-collapse: separate !important;
+    width: 100% !important; */
 }
 
 .p-bottom {
@@ -70,13 +91,13 @@ div.SingleDatePickerInput {
 }
 
 /* color rosado en el boton apply changes */
-#changes_button {
+#apply_impulse_button {
     background-color: var(--pink-color);
     border-color:var(--pink2-color);
 }
 
 /* color rosado en el boton apply changes:hover */
-#changes_button:hover {
+#apply_impulse_button:hover {
     background-color: var(--pink2-color);
     border-color:var(--pink2-color);
 }
@@ -275,5 +296,7 @@ p {
     font-size: 3rem;
     margin-right: 0.5rem;  
 }
+
+#error_text { color: var(--pink-color); }
 
 .test { border: 0.0px dashed var(--pink-color);}
