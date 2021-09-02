@@ -1,6 +1,0 @@
-# 4, 6, 7, 11?, 12, 13
-https://towardsdatascience.com/callbacks-layouts-bootstrap-how-to-create-dashboards-in-plotly-dash-1d233ff63e30
-https://dash-bootstrap-components.opensource.faculty.ai/docs/
-
-https://dash-bootstrap-components.opensource.faculty.ai/examples/simple-sidebar/
-https://stackoverflow.com/questions/62732631/how-to-collapsed-sidebar-in-dash-plotly-dash-bootstrap-components

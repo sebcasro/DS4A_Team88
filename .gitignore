@@ -3,3 +3,5 @@ datos/
 *.xlsx
 dash/__pycache__/
 dash/aws/
+dash/data/*
+dash/jupyter notebooks/*

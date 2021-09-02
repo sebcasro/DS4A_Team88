@@ -27,7 +27,8 @@ services:
 --------------------------------------------------
 sudo docker-compose build
 sudo docker-compose run --rm app
-sudo docker-compose up
+sudo docker-compose up --timeout 600
+sudo docker-compose stop
 --------------------------------------------------
 sudo docker images
 sudo docker rmi -f
