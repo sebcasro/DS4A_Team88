@@ -2,7 +2,7 @@
 
 # Algorithm based on artificial intelligence to predict Kwh price in the traditional Colombian energy market 
 
-![application home page](https://raw.githubusercontent.com/sebcasro/DS4A_Team88/main/dash/assets/images/home_page.png?token=AHS5PNAHQXVZJRPQL2F4MRTBGETNS)
+![application home page](dash/assets/images/home_page.png)
 
 Conexalab is an enterprise based in Bucaramanga, whose main target is to give support and guidance in the projects of their clients. On the subject of energy, they aim to promote the use of renewable energy, smart energy, energy efficiency and the reduction of carbon footprint. Another goal of Conexalab is the reduction of the social gaps through the development of different investment projects. 
 
