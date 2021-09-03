@@ -97,11 +97,11 @@ def impulse(fig1, zoom_year, error_text, impulse_date, forecasting_model, variab
 
             if impulse_magnitude is None:
                 del projection_df_temp
-                return fig1, "Error: you need to write an impulse magnitude.", impulse_date, forecasting_model, variable_shocked, impulse_magnitude, cumulative_impulse, forecast_convergence
+                return fig1, "Error: (Impulse magnitude) you need to write a number between -50 and 50.", impulse_date, forecasting_model, variable_shocked, impulse_magnitude, cumulative_impulse, forecast_convergence
 
-            if (impulse_magnitude < -1000) or (impulse_magnitude > 1000):
-                del projection_df_temp
-                return fig1, "Error: (Impulse magnitude) you need to write an integer number between -1000 and 1000."
+            if (impulse_magnitude < -50) or (impulse_magnitude > 50):
+                del projection_df_temp                
+                return fig1, "Error: (Impulse magnitude) you need to write a number between -50 and 50.", impulse_date, forecasting_model, variable_shocked, impulse_magnitude, cumulative_impulse, forecast_convergence
             # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
             forecasting_model_2 = f'kW/h price {forecasting_model}'
@@ -139,7 +139,7 @@ def impulse(fig1, zoom_year, error_text, impulse_date, forecasting_model, variab
             # forecast_convergence: off
             if forecast_convergence_2 == 0:
 
-                data=original_level_after_shock(impulse_date, forecasting_model_2, variable_shocked_2, impulse_magnitude)
+                data=original_level_after_shock(impulse_date, forecasting_model_2, variable_shocked_2, factor_de_expansion(variable_shocked_2,impulse_magnitude))
 
                 # Create traces
                 fig1 = None
@@ -169,8 +169,8 @@ def impulse(fig1, zoom_year, error_text, impulse_date, forecasting_model, variab
                 )
 
             else:
-            
-                data=original_level_after_shock_convergencia(impulse_date, forecasting_model_2, variable_shocked_2, impulse_magnitude)
+
+                data=original_level_after_shock_convergencia(impulse_date, forecasting_model_2, variable_shocked_2, factor_de_expansion(variable_shocked_2,impulse_magnitude))
 
                 # Create traces
                 fig1 = None

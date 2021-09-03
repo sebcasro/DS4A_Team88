@@ -38,239 +38,235 @@ tab1_content = html.Div([
 
         dbc.Col([
             dbc.Tabs([
-                    # ::::::::::::::::::::::::::::::::
-                    # Tab 1
-                    dbc.Tab([
-                        html.Div([
-                            # ::::::::::::::::::::::::::::::::
-                            # Filter row
-                            dbc.Row([
-                                dbc.Col([
-                                    # Year selection dropdown
-                                    dbc.FormGroup([
-                                        dbc.Label("Year", html_for="year_tab1"),
-                                        dcc.Dropdown(
-                                            id="year_tab1", value=years[0], clearable=False,
-                                            options=[
-                                                {"label": x, "value": x} for x in years
-                                            ],
-                                        ),
-                                    ]),
-                                ], className='test', md=1),
+                # ::::::::::::::::::::::::::::::::
+                # Tab 1
+                dbc.Tab([
+                    html.Div([
+                        # ::::::::::::::::::::::::::::::::
+                        # Filter row
+                        dbc.Row([
+                            dbc.Col([
+                                # Year selection dropdown
+                                dbc.FormGroup([
+                                    dbc.Label("Year", html_for="year_tab1"),
+                                    dcc.Dropdown(
+                                        id="year_tab1", value=years[0], clearable=False,
+                                        options=[
+                                            {"label": x, "value": x} for x in years
+                                        ],
+                                    ),
+                                ]),
+                            ], className='test', md=1),
 
-                                dbc.Col([
-                                    # Month selection dropdown
-                                    dbc.FormGroup([
-                                        dbc.Label("Month", html_for="month_tab1"),
-                                        dcc.Dropdown(
-                                            id="month_tab1", value=months[0], clearable=False,
-                                            options=[
-                                                {"label": x, "value": x} for x in months
-                                            ],
-                                        ),
-                                    ]),
-                                ], className='test', md=1),
+                            dbc.Col([
+                                # Month selection dropdown
+                                dbc.FormGroup([
+                                    dbc.Label("Month", html_for="month_tab1"),
+                                    dcc.Dropdown(
+                                        id="month_tab1", value=months[0], clearable=False,
+                                        options=[
+                                            {"label": x, "value": x} for x in months
+                                        ],
+                                    ),
+                                ]),
+                            ], className='test', md=1),
 
-                                dbc.Col([
-                                    # Energy type dropdown
-                                    dbc.FormGroup([
-                                        dbc.Label("Energy type", html_for="energy_type"),
-                                        dcc.Dropdown(
-                                            id="energy_type", value='All', clearable=False,
-                                            options=[
-                                                {"label": "All" , "value": 'All'},
-                                                {"label": "Hydraulic energy", "value": "Hydraulic energy"},
-                                                {"label": "Thermal energy", "value": "Thermal energy"},
-                                                {"label": "Solar energy", "value": "Solar energy"},
-                                            ],
-                                        ),
-                                    ]),
-                                ], className='test', md=2),
-                            ], className='test min-height-84'),
+                            dbc.Col([
+                                # Energy type dropdown
+                                dbc.FormGroup([
+                                    dbc.Label("Energy type", html_for="energy_type"),
+                                    dcc.Dropdown(
+                                        id="energy_type", value='All', clearable=False,
+                                        options=[
+                                            {"label": "All" , "value": 'All'},
+                                            {"label": "Hydraulic energy", "value": "Hydraulic energy"},
+                                            {"label": "Thermal energy", "value": "Thermal energy"},
+                                            {"label": "Solar energy", "value": "Solar energy"},
+                                        ],
+                                    ),
+                                ]),
+                            ], className='test', md=2),
+                        ], className='test min-height-84'),
 
-                            # ::::::::::::::::::::::::::::::::
-                            # First graphs row
-                            dbc.Row([
-                                # Gráfica 1
-                                dbc.Col([
-                                    html.Div([
-                                        dbc.Checklist(
-                                            options=[{"label": "Show data by months", "value": 0}],
-                                            value=[], id="graph5_switch", switch=True,
-                                        ),
-                                        dcc.Graph(id='graph5', style={'height': '64vh'}, className=''),
-                                        html.P(id='graph5_description', children=['graph5_description']),
-                                    ], className='test')
-                                ], className='test', md=6),
+                        # ::::::::::::::::::::::::::::::::
+                        # First graphs row
+                        dbc.Row([
+                            # Gráfica 1
+                            dbc.Col([
+                                html.Div([
+                                    dbc.Checklist(
+                                        options=[{"label": "Show data by months", "value": 0}],
+                                        value=[], id="graph5_switch", switch=True,
+                                    ),
+                                    dcc.Graph(id='graph5', style={'height': '64vh'}, className=''),
+                                    html.P(id='graph5_description', children=['graph5_description']),
+                                ], className='test')
+                            ], className='test', md=6),
 
-                                # Gráfica 2
-                                dbc.Col([
-                                    html.Div([
-                                        dbc.Checklist(
-                                            options=[{"label": "Show data by months", "value": 0}],
-                                            value=[], id="graph6_switch", switch=True,
-                                        ),
-                                        dcc.Graph(id='graph6', style={'height': '64vh'}, className=''),
-                                        html.P(id='graph6_description', children=['graph6_description']),
-                                    ], className='test')
-                                ], className='test', md=6),
-                            ], className='test'),
+                            # Gráfica 2
+                            dbc.Col([
+                                html.Div([
+                                    dbc.Checklist(
+                                        options=[{"label": "Show data by months", "value": 0}],
+                                        value=[], id="graph6_switch", switch=True,
+                                    ),
+                                    dcc.Graph(id='graph6', style={'height': '64vh'}, className=''),
+                                    html.P(id='graph6_description', children=['graph6_description']),
+                                ], className='test')
+                            ], className='test', md=6),
+                        ], className='test'),
 
-                            # ::::::::::::::::::::::::::::::::
-                            # Second graphs row
-                            dbc.Row([
-                                # Gráfica 3
-                                dbc.Col([
-                                    html.Div([
-                                        dcc.Graph(id='graph7', style={'height': '64vh'}, className=''),
-                                        html.P(
-                                            id='graph7_description', 
-                                            children=[
-                                                'On this ',
-                                                dcc.Link('scatter plot,', href='https://en.wikipedia.org/wiki/Scatter_plot', target='_blank'),
-                                                ' we can see the relationship between the total availability and the price energy market in Colombia.',
-                                            ]
-                                        ),
-                                    ], className='test')
-                                ], className='test', md=6),
+                        # ::::::::::::::::::::::::::::::::
+                        # Second graphs row
+                        dbc.Row([
+                            # Gráfica 3
+                            dbc.Col([
+                                html.Div([
+                                    dcc.Graph(id='graph7', style={'height': '64vh'}, className=''),
+                                    html.P(
+                                        id='graph7_description', 
+                                        children=[
+                                            'On this ',
+                                            dcc.Link('scatter plot,', href='https://en.wikipedia.org/wiki/Scatter_plot', target='_blank'),
+                                            ' we can see the relationship between the total availability and the price energy market in Colombia.',
+                                        ]
+                                    ),
+                                ], className='test')
+                            ], className='test', md=6),
 
-                                # Gráfica 4
-                                dbc.Col([
-                                    html.Div([
-                                        dcc.Graph(id='graph8', style={'height': '64vh'}, className=''),
-                                        html.P(
-                                            id='graph8_description', 
-                                            children=['On this table, you can see the plants that generate the most energy, the amount of energy generated and the source']
-                                        ),
-                                    ], className='test')
-                                ], className='test', md=6),
-                            ], className='test'),
+                            # Gráfica 4
+                            dbc.Col([
+                                html.Div([
+                                    dcc.Graph(id='graph8', style={'height': '64vh'}, className=''),
+                                    html.P(
+                                        id='graph8_description', 
+                                        children=['On this table, you can see the plants that generate the most energy, the amount of energy generated and the source']
+                                    ),
+                                ], className='test')
+                            ], className='test', md=6),
+                        ], className='test'),
 
-                        ], className="test tab-border")
-                    ], label="Power Generated"),
+                    ], className="test tab-border")
+                ], label="Power Generated"),
 
-                    # ::::::::::::::::::::::::::::::::
-                    # Tab 2
-                    dbc.Tab([
-                        html.Div([
-                            # ::::::::::::::::::::::::::::::::
-                            # Filter row
-                            dbc.Row([
-                                dbc.Col([
-                                    # Year selection dropdown
-                                    dbc.FormGroup([
-                                        dbc.Label("Year", html_for="year_tab2"),
-                                        dcc.Dropdown(
-                                            id="year_tab2", value=years[0], clearable=False,
-                                            options=[
-                                                {"label": x, "value": x} for x in years
-                                            ],
-                                        ),
-                                    ]),
-                                ], className='test', md=1),
+                # ::::::::::::::::::::::::::::::::
+                # Tab 2
+                dbc.Tab([
+                    html.Div([
+                        # ::::::::::::::::::::::::::::::::
+                        # Filter row
+                        dbc.Row([
+                            dbc.Col([
+                                # Year selection dropdown
+                                dbc.FormGroup([
+                                    dbc.Label("Year", html_for="year_tab2"),
+                                    dcc.Dropdown(
+                                        id="year_tab2", value=years[0], clearable=False,
+                                        options=[
+                                            {"label": x, "value": x} for x in years
+                                        ],
+                                    ),
+                                ]),
+                            ], className='test', md=1),
 
-                                dbc.Col([
-                                    # Month selection dropdown
-                                    dbc.FormGroup([
-                                        dbc.Label("Month", html_for="month_tab2"),
-                                        dcc.Dropdown(
-                                            id="month_tab2", value=months[0], clearable=False,
-                                            options=[
-                                                {"label": x, "value": x} for x in months
-                                            ],
-                                        ),
-                                    ]),
-                                ], className='test', md=1),
+                            dbc.Col([
+                                # Month selection dropdown
+                                dbc.FormGroup([
+                                    dbc.Label("Month", html_for="month_tab2"),
+                                    dcc.Dropdown(
+                                        id="month_tab2", value=months[0], clearable=False,
+                                        options=[
+                                            {"label": x, "value": x} for x in months
+                                        ],
+                                    ),
+                                ]),
+                            ], className='test', md=1),
 
-                                # m3 vs gw option
-                                dbc.Col([
-                                    dbc.FormGroup([
-                                        dbc.Label("Choose one"),
-                                        dbc.RadioItems(
-                                            id="radio_input", value="m3/s", inline=True,
-                                            options=[
-                                                {"label": "m3/s", "value": "m3/s"},
-                                                {"label": "gW", "value": "gW"},
-                                            ],
-                                        ),
-                                    ])
-                                ], className='test', md=2),
-                            ], className='test min-height-84'),
+                            # m3 vs gw option
+                            dbc.Col([
+                                dbc.FormGroup([
+                                    dbc.Label("Choose one"),
+                                    dbc.RadioItems(
+                                        id="radio_input", value="m3/s", inline=True,
+                                        options=[
+                                            {"label": "m3/s", "value": "m3/s"},
+                                            {"label": "gW", "value": "gW"},
+                                        ],
+                                    ),
+                                ])
+                            ], className='test', md=2),
+                        ], className='test min-height-84'),
 
-                            # ::::::::::::::::::::::::::::::::
-                            # First graphs row
-                            dbc.Row([
-                                # Gráfica 1
-                                dbc.Col([
-                                    html.Div([
-                                        dcc.Graph(id='graph9', style={'height': '64vh'}, className=''),
-                                        html.P(
-                                            id='graph9_description', 
-                                            children=[
-                                                'On this ',
-                                                dcc.Link('scatter plot,', href='https://en.wikipedia.org/wiki/Scatter_plot', target='_blank'),
-                                                ' we can see the upward relationship between the flow contribution and the energy contribution in Colombia.', 
-                                            ]
-                                        ),
-                                    ], className='test')
-                                ], className='test', md=6),
+                        # ::::::::::::::::::::::::::::::::
+                        # First graphs row
+                        dbc.Row([
+                            # Gráfica 1
+                            dbc.Col([
+                                html.Div([
+                                    dcc.Graph(id='graph9', style={'height': '64vh'}, className=''),
+                                    html.P(
+                                        id='graph9_description', 
+                                        children=[
+                                            'On this ',
+                                            dcc.Link('scatter plot,', href='https://en.wikipedia.org/wiki/Scatter_plot', target='_blank'),
+                                            ' we can see the upward relationship between the flow contribution and the energy contribution in Colombia.', 
+                                        ]
+                                    ),
+                                ], className='test')
+                            ], className='test', md=6),
 
-                                # Gráfica 2
-                                dbc.Col([
-                                    html.Div([
-                                        dcc.Graph(id='graph10', style={'height': '64vh'}, className=''),
-                                        html.P(
-                                            id='graph10_description', 
-                                            children=[
-                                                'On this ',
-                                                dcc.Link('box plot,', href='https://en.wikipedia.org/wiki/Box_plot', target='_blank'),
-                                                ' we can see the flow ("energy") contribution to the Hydro plants, each month in Colombia.', 
-                                            ]
-                                        ),
-                                    ], className='test')
-                                ], className='test', md=6),
-                            ], className='test'),
+                            # Gráfica 2
+                            dbc.Col([
+                                html.Div([
+                                    dcc.Graph(id='graph10', style={'height': '64vh'}, className=''),
+                                    html.P(
+                                        id='graph10_description', 
+                                        children=[
+                                            'On this ',
+                                            dcc.Link('box plot,', href='https://en.wikipedia.org/wiki/Box_plot', target='_blank'),
+                                            ' we can see the flow ("energy") contribution to the Hydro plants, each month in Colombia.', 
+                                        ]
+                                    ),
+                                ], className='test')
+                            ], className='test', md=6),
+                        ], className='test'),
 
-                            # ::::::::::::::::::::::::::::::::
-                            # Second graphs row
-                            dbc.Row([
-                                # Gráfica 3
-                                dbc.Col([
-                                    html.Div([
-                                        dcc.Graph(id='graph11', style={'height': '64vh'}, className=''),
-                                        html.P(
-                                            id='graph11_description', 
-                                            children=[
-                                                'On this ',
-                                                dcc.Link('scatter plot,', href='https://en.wikipedia.org/wiki/Scatter_plot', target='_blank'),
-                                                ' we can see the relationship between the flow ("energy") contribution and the energy price in Colombia.', 
-                                            ]
-                                        ),
-                                    ], className='test')
-                                ], className='test', md=6),
+                        # ::::::::::::::::::::::::::::::::
+                        # Second graphs row
+                        dbc.Row([
+                            # Gráfica 3
+                            dbc.Col([
+                                html.Div([
+                                    dcc.Graph(id='graph11', style={'height': '64vh'}, className=''),
+                                    html.P(
+                                        id='graph11_description', 
+                                        children=[
+                                            'On this ',
+                                            dcc.Link('scatter plot,', href='https://en.wikipedia.org/wiki/Scatter_plot', target='_blank'),
+                                            ' we can see the relationship between the flow ("energy") contribution and the energy price in Colombia.', 
+                                        ]
+                                    ),
+                                ], className='test')
+                            ], className='test', md=6),
 
-                                # Gráfica 4
-                                dbc.Col([
-                                    html.Div([
-                                        dcc.Graph(id='graph12', style={'height': '64vh'}, className=''),
-                                        html.P(
-                                            id='graph12_description', 
-                                            children=[
-                                                'On this ',
-                                                dcc.Link('time series,', href='https://en.wikipedia.org/wiki/Time_series', target='_blank'),
-                                                ' we can see the behavior of the flow ("energy") contribution over time, showing its highest and lowest flow at the same time.', 
-                                            ]
-                                        ),
-                                    ], className='test')
-                                ], className='test', md=6),
-                            ], className='test'),
+                            # Gráfica 4
+                            dbc.Col([
+                                html.Div([
+                                    dcc.Graph(id='graph12', style={'height': '64vh'}, className=''),
+                                    html.P(
+                                        id='graph12_description', 
+                                        children=[
+                                            'On this ',
+                                            dcc.Link('time series,', href='https://en.wikipedia.org/wiki/Time_series', target='_blank'),
+                                            ' we can see the behavior of the flow ("energy") contribution over time, showing its highest and lowest flow at the same time.', 
+                                        ]
+                                    ),
+                                ], className='test')
+                            ], className='test', md=6),
+                        ], className='test'),
 
-                        ], className="test tab-border")
-                    ], label="Contribution"),
-
-
-
-                    # ::::::::::::::::::::::::::::::::
+                    ], className="test tab-border")
+                ], label="Contribution"),
             ])
         ], className='test no-side-padding', md=12),
     ], className='test'),
@@ -280,7 +276,10 @@ tab1_content = html.Div([
 tab2_content = html.Div([
     dbc.Row([
         dbc.Col([
-            html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
+            html.P('The following interactive graph presents the results of our Machine Learning models to generate the energy price forecast, constructed from historical price information and the explanatory variables: Hydraulic Availability, Thermal Availability, Flow contribution, Daily Volume (Mm3), Volume (Mm3) and Daily Useful Volume (gWh), whose definitions can be found in the tab: Glossary.'),
+            html.P('Our Machine Learning models are: ARIMA, SARIMAX and Neural Prophet. These three selected models are the best performing after having tested more than 150 different models to project all the series that are required for this exercise.'),
+            html.P('Given that the parameters of each model assign different values to the information that is incorporated into them, the results they deliver also differ, and for this reason we decided to add an additional projection which is the average of the former projections. This projection has the advantage of reducing what may be the furthest or most extreme values of each model with respect to the others.'),
+            html.P('Finally, understanding that the greatest difficulty that time series models have in long time horizons, as in this case, is to be able to anticipate unexpected events that affect the price, we estimated and incorporated the corresponding impulse response functions from the SARIMAX model to simulate different types of shocks on our projections, and apply them over all the projections.'),
             html.Hr()
         ], className='test', id='tab_text_prediction', md=12),
 
@@ -299,7 +298,6 @@ tab2_content = html.Div([
                 with_portal=True,
                 display_format='DD/MM/YYYY',
             ),
-            
             
             html.Br(),
 
@@ -335,7 +333,7 @@ tab2_content = html.Div([
 
             dbc.FormGroup([
                 dbc.Label("Impulse magnitude", html_for="impulse_magnitude"),
-                dbc.Input(id='impulse_magnitude', type="number", placeholder="Integer number between -1000 and 1000", min=-1000, max=1000, step=1),
+                dbc.Input(id='impulse_magnitude', type="number", placeholder="Integer number between -50 and 50", min=-50, max=50),
             ]),
 
             dbc.Checklist(
@@ -359,10 +357,8 @@ tab2_content = html.Div([
 
         ], className='test borde-right', md=3),
 
-
         # Gráfica principal
         dbc.Col([
-            
             # Zoom year
             dbc.Row([
                 dbc.Col([
@@ -380,22 +376,46 @@ tab2_content = html.Div([
             dbc.Row([
                 dbc.Col([
                     html.Div([ 
-                        dcc.Graph(id='graph1', style={'height': '52vh'}, className='', figure=main_fig),
+                        dcc.Graph(id='graph1', style={'height': '64vh'}, className='', figure=main_fig),
                         # html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
                     ], className='test')
                 ], className='test', md=12),
             ], className='test'),
         ], className='test', md=9),
-
-
-
     ], className='test'),
     
     dbc.Row([
         dbc.Col([ 
             html.Div([
                 html.Br(),
-                html.P('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elit dui, ultrices nec quam vitae, eleifend congue risus. Donec sed neque at nisi malesuada elementum. Curabitur non odio aliquet, maximus diam ut, iaculis nunc. Cras vel ornare dui. Integer et neque vitae magna ultrices rhoncus molestie sed augue. Suspendisse condimentum purus vel purus maximus ultrices. Mauris consectetur tortor orci, quis ultricies felis eleifend aliquet. Nulla massa neque, mattis at vehicula aliquam, eleifend sed augue. Ut posuere tristique massa quis semper. Pellentesque vitae dapibus neque. Pellentesque id eleifend metus, sit amet lacinia ex. Donec malesuada viverra magna a rutrum. Suspendisse potenti.'),
+                html.P('These are the indications to simulate shocks in the explanatory variables that affect future realizations of Energy Price:'),
+                html.Div(
+                    children=[
+                        html.Ol(children=[
+                            html.Li('Select the date the crash will occur.'),
+                            html.Li('Select the model on which you want to see the price response to the shock.'),
+                            html.Li('Select the variable that receives the shock and generates the impulse that will affect the price.'),
+                            html.Li('Determine the magnitude of the shock which should be entered as a percentage. To see the effect of a 10% drop on a variable, enter -10.'),
+                            html.Li('Define whether it is a cumulative impulse or not. A cumulative impulse is one in which the selected variable will receive the shock of the selected magnitude for 100 consecutive days.'),
+                            html.Li('Determine if you want to simulate the crash with or without a return to the original forecast. A shock with no return to the original forecast is interpreted as a structural or long-term shock.'),
+                        ])
+                    ],
+                ),
+                html.P('Note that the different configuration between cumulative impulse or not, and shock with return to forecast or not, determine whether the shock is very short-term, short-term, long-term or structural, for example:'),
+
+                html.Div(
+                    children=[
+                        html.Ul(children=[
+                            html.Li('Non-cumulative impulse + return-to-forecast shock = very short-term shock.'),
+                            html.Li('Non-cumulative impulse + shock with no return to forecast = long-term shock.'),
+                            html.Li('Cumulative impulse + shock with return to forecast = medium-term shock.'),
+                            html.Li('Cumulative impulse + shock with no return to forecast = long-term shock with structural change.'),
+                        ])
+                    ],
+                ),
+
+                html.P('Note that for cumulative shocks, the growth factor is accelerated since the shock is incorporated in 100 consecutive periods, therefore it is suggested to use values greater than -3 and less than 3, to obtain plausible results.'),
+
             ], className='test')
         ], className='test', md=12),
     ], className='test borde-top'),
