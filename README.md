@@ -1,6 +1,6 @@
 # DS4A - Team88
 
-# Algorithm based on artificial intelligence to predict Kwh price in the traditional Colombian energy market 
+# Energy price prediction for the Colombian market using Machine Learning models.
 
 ![application home page](dash/assets/images/home_page.png)
 
