@@ -42,8 +42,8 @@ layout_p1 = html.Div([
 
                 dbc.Col([
                     html.Div([
-                        dcc.Link(html.I(className="fab fa-youtube link-icon"), href='#', target='_blank'),
-                        dcc.Link('Watch video', href='#', target='_blank', className='link-text')
+                        dcc.Link(html.I(className="fab fa-youtube link-icon"), href='https://www.youtube.com/watch?v=q3agHEjSOUM', target='_blank'),
+                        dcc.Link('Watch video', href='https://www.youtube.com/watch?v=q3agHEjSOUM', target='_blank', className='link-text')
                     ], className='test link-container'),
                 ], className='test', md=3),
 
