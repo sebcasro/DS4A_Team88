@@ -27,19 +27,30 @@ Finally, we believe that a proper construction and development of our algorithm 
 
 All the files required to run the application locally are inside the folder *dash*. The dashboard was develop with *Python* using the library *Dash* (In order for the application to work you'll need to make sure you have installed Python in your computer).
 
-1. The first step would be to install the requirements, for this you can use *pip* and the following command:
+0. (optional) We recommend you to use a virtual environment in order to prevent conflicts with other libraries you may have already installed in your computer. [A Guide to Python’s Virtual Environments](https://towardsdatascience.com/virtual-environments-104c62d48c54)
+
+1. The first step would be to install the requirements (this file is located inside the *dash* folder), for this you can use *pip* and the following command:
 
 ```
 pip install -r requirements.txt
 ```
 
-2. Once the installation of the libraries is completed, you'll need to run the application. 
+2. There are two files you'll need to download (*these files were too big to be uploaded to GitHub*). Inside the *data* folder run the followings commands:
+
+```
+python descarga_datos_Disponibilidad_Real.py
+```
+```
+python descarga_datos_Disponibilidad_Real(porcentaje).py
+```
+
+3. Once the have downloaded the files and the installation of the libraries is completed, you'll need to start the application. (inside the *dash* folder)
 
 ```
 python index.py
 ```
 
-3. The last step would be to access the application locally on your browser with the link:
+4. The last step would be to access the application locally on your browser with the link:
 
 ```
 http://localhost:8050/
