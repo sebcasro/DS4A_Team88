@@ -2,16 +2,16 @@ import json
 import numpy as np
 import pandas as pd
 
-original_df = pd.read_excel('./data/original series.xlsx')
+original_df = pd.read_excel('../data/original series.xlsx')
 original_df = original_df.set_index('Date')
 
-forecast_df = pd.read_excel('./data/series forecast.xlsx')
+forecast_df = pd.read_excel('../data/series forecast.xlsx')
 forecast_df = forecast_df.set_index('Date')
 
-forecast_diff_df = pd.read_excel('./data/series forecast diff.xlsx')
+forecast_diff_df = pd.read_excel('../data/series forecast diff.xlsx')
 forecast_diff_df = forecast_diff_df.set_index('Date')
 
-with open('./data/impulse_responses.json', 'r') as f:
+with open('../data/impulse_responses.json', 'r') as f:
     impulse_response = json.load(f)
 
 

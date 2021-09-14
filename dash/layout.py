@@ -13,8 +13,10 @@ import pandas as pd
 # Add your data
 #####################################
 
-df = pd.read_csv('./data/ts_kwh_dataframe.csv')
+df = pd.read_csv('../data/ts_kwh_dataframe.csv')
 df = df.drop('Unnamed: 0', axis = 1)
+# df.rename(columns={'Fecha':'Date'}, inplace=True)
+df.rename(columns={'Aportes Caudal m3/s':'Flow contribution (m3/s)', 'kW/h price mean':'kW/h price daily mean', 'Aportes Energía gWh':'Energy contribution (gWh)'}, inplace=True)
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.set_index('Date')
 df['Year'] = df.index.year
@@ -29,7 +31,7 @@ df = df.reset_index()
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 dtypes = {'Fecha': 'object', 'Recurso': 'object', 'Código Agente': 'object', 'Archivo': 'object', 'Código Recurso': 'object'}
-prom_diario=pd.read_csv("./data/Disponibilidad_Real(porcentaje).csv", dtype=dtypes)
+prom_diario=pd.read_csv("../data/Disponibilidad_Real(porcentaje).csv", dtype=dtypes)
 del dtypes
 
 prom_diario.rename(columns={'Recurso':'Company',"Tipo Generación":"Energy type", "Fecha":"Date" }, inplace=True)
@@ -45,11 +47,12 @@ prom_diario['Year'] = pd.DatetimeIndex(prom_diario['Date']).year
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 dtypes = {'Fecha': 'object', 'Recurso': 'object', 'Código Agente': 'object', 'Archivo': 'object', 'Código Recurso': 'object'}
-prom_diario_real = pd.read_csv("./data/Disponibilidad_Real.csv", dtype=dtypes)
+prom_diario_real = pd.read_csv("../data/Disponibilidad_Real.csv", dtype=dtypes)
 del dtypes
 
 prom_diario_real[["0","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]]=prom_diario_real[["0","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]]/1000000
 prom_diario_real.rename(columns={'Recurso':'Company',"Tipo Generación":"Energy type", "Fecha":"Date" }, inplace=True)
+prom_diario_real.rename(columns={'Aportes Caudal m3/s':'Flow contribution (m3/s)', 'kW/h price mean':'kW/h price daily mean'}, inplace=True)
 prom_diario_real=prom_diario_real.drop(['Archivo', 'Código Recurso', 'Código Agente'], axis = 1)
 prom_diario_real["Total energy generated GW"]=prom_diario_real.sum(axis=1)
 prom_diario_real['Month'] = pd.DatetimeIndex(prom_diario_real['Date']).month

@@ -205,7 +205,8 @@ def impulse(fig1, zoom_year, error_text, impulse_date, forecasting_model, variab
         del projection_df_temp
         return fig1, error_text, impulse_date, forecasting_model, variable_shocked, impulse_magnitude, cumulative_impulse, forecast_convergence
     
-    except:        
+    except Exception as e:
+        print(f': ERROR ::::::::::::::::: {e}' )
         visdcc.Run_js(id='javascript', run="location.reload();")
         # print('Error')
 
@@ -227,6 +228,10 @@ def description_power_generated(year, month, data_selection, graph5_switch, grap
         temp = df.copy()
         prom_diario_temp = prom_diario.copy()
         prom_diario_real_temp = prom_diario_real.copy()
+
+        # print(list(temp))
+        # print(list(prom_diario_temp))
+        # print(list(prom_diario_real_temp))
 
         graph5_switch = len(graph5_switch)
         graph6_switch = len(graph6_switch)
@@ -414,7 +419,8 @@ def description_power_generated(year, month, data_selection, graph5_switch, grap
         del temp, prom_diario_temp, prom_diario_real_temp
         return fig5, fig6, fig7, fig8, graph5_description, graph6_description
 
-    except:        
+    except Exception as e:
+        print(f': ERROR ::::::::::::::::: {e}' )
         visdcc.Run_js(id='javascript', run="location.reload();")
         # print('Error')
 
@@ -517,7 +523,8 @@ def description_contribution(year, month, data_selection):
         del temp
         return fig9, fig10, fig11, fig12
     
-    except:
+    except Exception as e:
+        print(f': ERROR ::::::::::::::::: {e}' )
         visdcc.Run_js(id='javascript', run="location.reload();")
         # print('Error')
 
